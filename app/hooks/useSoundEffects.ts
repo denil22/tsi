@@ -10,6 +10,7 @@ import { useRef, useEffect } from 'react'
 export function useSoundEffects() {
   const clickSoundRef = useRef<HTMLAudioElement | null>(null)
   const soundEffectRef = useRef<HTMLAudioElement | null>(null)
+  const wasPlayingRef = useRef(false) // Track if sound effect was playing before tab switch
 
   // Initialize audio elements
   useEffect(() => {
@@ -28,10 +29,16 @@ export function useSoundEffects() {
     const handleVisibilityChange = () => {
       if (soundEffectRef.current) {
         if (document.hidden) {
+          // Remember if it was playing
+          wasPlayingRef.current = !soundEffectRef.current.paused
           soundEffectRef.current.pause()
-        } else if (!soundEffectRef.current.paused) {
-          // Resume if it was playing before
-          soundEffectRef.current.play().catch(() => {})
+        } else {
+          // Resume if it was playing before tab switch
+          if (wasPlayingRef.current) {
+            soundEffectRef.current.play().catch(() => {
+              wasPlayingRef.current = false
+            })
+          }
         }
       }
     }
@@ -65,7 +72,9 @@ export function useSoundEffects() {
   // Play sound effect (looping)
   const playSoundEffect = () => {
     if (soundEffectRef.current) {
+      wasPlayingRef.current = true
       soundEffectRef.current.play().catch(() => {
+        wasPlayingRef.current = false
         // Silently handle autoplay restrictions
       })
     }
@@ -74,6 +83,7 @@ export function useSoundEffects() {
   // Stop sound effect
   const stopSoundEffect = () => {
     if (soundEffectRef.current) {
+      wasPlayingRef.current = false
       soundEffectRef.current.pause()
       soundEffectRef.current.currentTime = 0
     }

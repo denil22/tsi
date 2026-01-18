@@ -21,8 +21,9 @@ export default function VideoBackground({ isMuted, onLoaded }: VideoBackgroundPr
   const [hasError, setHasError] = useState(false)
   const playAttemptedRef = useRef(false)
   const userInteractedRef = useRef(false)
+  const hasLoadedRef = useRef(false)
 
-  // Initialize video on mount
+  // Initialize video on mount - simple continuous play
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
@@ -30,36 +31,31 @@ export default function VideoBackground({ isMuted, onLoaded }: VideoBackgroundPr
     // Reset state
     setIsLoading(true)
     setHasError(false)
-    playAttemptedRef.current = false
+    hasLoadedRef.current = false
 
-    // Set muted state immediately
+    // Set muted state
     video.muted = isMuted
 
-    // Force play function
-    const forcePlay = async () => {
-      if (!video || playAttemptedRef.current) return
-      
+    // Simple play function - just play continuously
+    const playVideo = async () => {
+      if (!video) return
       try {
-        if (video.muted && video.paused) {
-          playAttemptedRef.current = true
+        if (video.paused) {
           await video.play()
         }
       } catch (error) {
-        playAttemptedRef.current = false
-        // Retry after a short delay
-        setTimeout(() => {
-          if (video && video.muted && video.paused) {
-            video.play().catch(() => {})
-          }
-        }, 200)
+        // Silently handle - will retry
       }
     }
 
     // Handle video ready events
     const handleReady = () => {
-      setIsLoading(false)
-      onLoaded?.()
-      forcePlay()
+      if (!hasLoadedRef.current) {
+        hasLoadedRef.current = true
+        setIsLoading(false)
+        onLoaded?.()
+      }
+      playVideo()
     }
 
     const handleError = () => {
@@ -81,10 +77,10 @@ export default function VideoBackground({ isMuted, onLoaded }: VideoBackgroundPr
       video.load()
     }
 
-    // Also try playing after a short delay (handles edge cases)
+    // Also try playing after a short delay
     const timeoutId = setTimeout(() => {
-      if (video && video.muted && video.paused && !playAttemptedRef.current) {
-        forcePlay()
+      if (video && video.paused) {
+        playVideo()
       }
     }, 300)
 
@@ -126,7 +122,7 @@ export default function VideoBackground({ isMuted, onLoaded }: VideoBackgroundPr
       if (userInteractedRef.current) {
         try {
           video.muted = false
-          // Try to play unmuted (should work since user interacted)
+          // Ensure video continues playing
           if (video.paused) {
             video.play().catch((error) => {
               // If unmuting fails, revert to muted
@@ -139,38 +135,17 @@ export default function VideoBackground({ isMuted, onLoaded }: VideoBackgroundPr
           // If setting muted fails, keep it muted
           video.muted = true
         }
-      } else {
-        // User hasn't interacted yet, keep muted
-        // This prevents the error on initial render
       }
     } else if (isMuted && !video.muted) {
       // User is muting - this always works
       video.muted = true
-      // Continue playing if already playing
+      // Ensure video continues playing
       if (video.paused) {
         video.play().catch(() => {})
       }
     }
   }, [isMuted])
 
-  // Handle visibility change
-  useEffect(() => {
-    const handleVisibilityChange = () => {
-      const video = videoRef.current
-      if (!video) return
-
-      if (document.hidden) {
-        video.pause()
-      } else if (video.muted) {
-        video.play().catch(() => {})
-      }
-    }
-
-    document.addEventListener('visibilitychange', handleVisibilityChange)
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange)
-    }
-  }, [])
 
   return (
     <div className="fixed inset-0 w-full h-full z-0 overflow-hidden">
