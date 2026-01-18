@@ -53,24 +53,24 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 // Main Landing Page Component
 export default function Home() {
   const [isMuted, setIsMuted] = useState(true)
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false)
+  const [isBackgroundLoaded, setIsBackgroundLoaded] = useState(false)
 
   const handleSoundToggle = (muted: boolean) => {
     setIsMuted(muted)
   }
 
-  const handleVideoLoaded = () => {
-    setIsVideoLoaded(true)
+  const handleBackgroundLoaded = () => {
+    setIsBackgroundLoaded(true)
   }
 
   return (
     <ErrorBoundary>
       <main className="relative w-full h-screen min-h-screen overflow-hidden" style={{ width: '100%', height: '100vh', minHeight: '100vh' }}>
-        {/* Video Background */}
-        <VideoBackground isMuted={isMuted} onLoaded={handleVideoLoaded} />
+        {/* GIF Background */}
+        <VideoBackground isMuted={isMuted} onLoaded={handleBackgroundLoaded} />
 
         {/* Loading Overlay */}
-        {!isVideoLoaded && (
+        {!isBackgroundLoaded && (
           <div className="fixed inset-0 bg-black z-30 flex items-center justify-center">
             <div className="text-white text-center px-4">
               <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4" />
