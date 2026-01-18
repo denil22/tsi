@@ -9,8 +9,12 @@ const config: Config = {
   theme: {
     extend: {
       screens: {
-        'xs': '475px',
+        'xs': '360px',  // Extra small mobile
         '3xl': '1920px',
+        '2xl': '1536px', // Already exists but explicit
+      },
+      spacing: {
+        '18': '4.5rem', // 72px - for button sizes
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

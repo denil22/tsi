@@ -32,7 +32,15 @@ export default function VideoBackground({ isMuted, onLoaded }: VideoBackgroundPr
   }
 
   return (
-    <div className="fixed inset-0 w-full h-full z-0 overflow-hidden">
+    <div 
+      className="fixed inset-0 w-full h-full z-0 overflow-hidden"
+      style={{
+        width: '100vw',
+        height: '100vh',
+        maxWidth: '100%',
+        maxHeight: '100%',
+      }}
+    >
       {isLoading && (
         <div className="absolute inset-0 bg-black flex items-center justify-center z-10">
           <div className="skeleton w-full h-full" />
@@ -41,7 +49,7 @@ export default function VideoBackground({ isMuted, onLoaded }: VideoBackgroundPr
       
       {hasError ? (
         <div className="absolute inset-0 bg-black flex items-center justify-center z-10">
-          <p className="text-white">Failed to load background</p>
+          <p className="text-white text-xs xs:text-sm sm:text-base px-4 text-center">Failed to load background</p>
         </div>
       ) : (
         <Image
@@ -58,12 +66,15 @@ export default function VideoBackground({ isMuted, onLoaded }: VideoBackgroundPr
             top: 0,
             left: 0,
             zIndex: 0,
+            maxWidth: '100vw',
+            maxHeight: '100vh',
           }}
           priority
           quality={100}
           unoptimized
           onLoad={handleLoad}
           onError={handleError}
+          sizes="100vw"
         />
       )}
     </div>

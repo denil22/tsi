@@ -65,7 +65,16 @@ export default function Home() {
 
   return (
     <ErrorBoundary>
-      <main className="relative w-full h-screen min-h-screen overflow-hidden" style={{ width: '100%', height: '100vh', minHeight: '100vh' }}>
+      <main 
+        className="relative w-full h-screen min-h-screen overflow-hidden" 
+        style={{ 
+          width: '100%', 
+          height: '100vh', 
+          minHeight: '100vh',
+          maxWidth: '100vw',
+          overflowX: 'hidden',
+        }}
+      >
         {/* GIF Background */}
         <VideoBackground isMuted={isMuted} onLoaded={handleBackgroundLoaded} />
 
@@ -73,8 +82,8 @@ export default function Home() {
         {!isBackgroundLoaded && (
           <div className="fixed inset-0 bg-black z-30 flex items-center justify-center">
             <div className="text-white text-center px-4">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-              <p className="text-sm sm:text-base md:text-lg">Loading...</p>
+              <div className="w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-3 xs:mb-4" />
+              <p className="text-xs xs:text-sm sm:text-base md:text-lg">Loading...</p>
             </div>
           </div>
         )}

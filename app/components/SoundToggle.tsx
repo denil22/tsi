@@ -66,10 +66,23 @@ export default function SoundToggle({ onToggle }: SoundToggleProps) {
                  transition-opacity duration-200
                  focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2
                  animate-fade-in cursor-pointer
-                 top-[0.5rem] left-[0.5rem]
-                 sm:top-[0.75rem] sm:left-[0.75rem]
-                 md:top-[1rem] md:left-[1rem]
-                 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 xl:w-20 xl:h-20"
+                 touch-manipulation
+                 top-[0.25rem] left-[0.25rem]
+                 xs:top-[0.375rem] xs:left-[0.375rem]
+                 sm:top-[0.5rem] sm:left-[0.5rem]
+                 md:top-[0.75rem] md:left-[0.75rem]
+                 lg:top-[1rem] lg:left-[1rem]
+                 w-11 h-11 
+                 xs:w-12 xs:h-12
+                 sm:w-12 sm:h-12
+                 md:w-14 md:h-14
+                 lg:w-16 lg:h-16
+                 xl:w-18 xl:h-18
+                 2xl:w-20 2xl:h-20"
+      style={{
+        paddingLeft: 'env(safe-area-inset-left, 0)',
+        paddingTop: 'env(safe-area-inset-top, 0)',
+      }}
       aria-label={isMuted ? 'Unmute video' : 'Mute video'}
       aria-pressed={isMuted}
     >

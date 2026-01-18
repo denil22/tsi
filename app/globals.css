@@ -38,10 +38,31 @@ body {
   text-size-adjust: 100%;
 }
 
+/* Extra small mobile (max-width: 360px) */
+@media (max-width: 22.5rem) {
+  html {
+    font-size: 13px;
+  }
+}
+
+/* Small mobile (361px - 480px) */
+@media (min-width: 22.5625rem) and (max-width: 30rem) {
+  html {
+    font-size: 14px;
+  }
+}
+
 /* Mobile-specific optimizations (max-width: 640px) */
 @media (max-width: 40rem) {
   html {
     font-size: 14px;
+  }
+  
+  /* Better touch targets on mobile */
+  button {
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
   }
 }
 
@@ -114,13 +135,10 @@ button {
   -ms-user-select: none;
 }
 
-/* Mobile touch targets (max-width: 640px) */
-@media (max-width: 40rem) {
-  button {
-    /* Slightly smaller on very small screens but still touch-friendly */
-    min-width: 2.5rem;
-    min-height: 2.5rem;
-  }
+/* Touch manipulation for better mobile performance */
+.touch-manipulation {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Tablet and desktop - maintain larger touch targets */
@@ -190,11 +208,31 @@ button:focus-visible {
 /* Safe area insets for mobile devices with notches */
 @supports (padding: max(0px)) {
   @media (max-width: 40rem) {
-    .fixed {
-      padding-left: max(0.5rem, env(safe-area-inset-left));
-      padding-right: max(0.5rem, env(safe-area-inset-right));
-      padding-top: max(0.5rem, env(safe-area-inset-top));
-      padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
-    }
+    /* Safe area handling is now done inline in components */
+  }
+}
+
+/* Prevent text selection on mobile */
+@media (max-width: 40rem) {
+  * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  /* Allow text selection in specific cases if needed */
+  input, textarea {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+}
+
+/* Better mobile viewport handling */
+@media (max-width: 40rem) {
+  body {
+    /* Prevent zoom on input focus */
+    touch-action: pan-x pan-y;
+    /* Better scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
   }
 }
