@@ -23,28 +23,19 @@ export default function SoundToggle({ onToggle }: SoundToggleProps) {
   const [isMuted, setIsMuted] = useState(true) // Default to muted
   const { playClickSound, playSoundEffect, stopSoundEffect } = useSoundEffects()
 
-  // Load state from localStorage on mount
+  // Always start muted on mount - ignore localStorage for initial state
   useEffect(() => {
-    const savedState = localStorage.getItem('videoMuted')
-    if (savedState !== null) {
-      const muted = savedState === 'true'
-      setIsMuted(muted)
-      onToggle(muted)
-      // Play or stop sound effect based on saved state
-      if (muted) {
-        stopSoundEffect()
-      } else {
-        playSoundEffect()
-      }
-    } else {
-      // Default to muted
-      onToggle(true)
-      stopSoundEffect()
-    }
-  }, [onToggle, playSoundEffect, stopSoundEffect])
+    // Always default to muted state on page load
+    setIsMuted(true)
+    onToggle(true)
+    stopSoundEffect()
+    
+    // Clear any saved state to ensure fresh start
+    localStorage.removeItem('videoMuted')
+  }, []) // Run only once on mount
 
   const handleToggle = () => {
-    // Play click sound
+    // Play click sound first
     playClickSound()
     
     const newMutedState = !isMuted
@@ -53,10 +44,15 @@ export default function SoundToggle({ onToggle }: SoundToggleProps) {
     onToggle(newMutedState)
     
     // Play or stop sound effect based on new state
+    // Since user clicked, we can play sound effect immediately
     if (newMutedState) {
       stopSoundEffect()
     } else {
-      playSoundEffect()
+      // User clicked to turn sound on - play sound effect
+      // Small delay to ensure click sound plays first
+      setTimeout(() => {
+        playSoundEffect()
+      }, 100)
     }
   }
 

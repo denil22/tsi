@@ -11,6 +11,7 @@ export function useSoundEffects() {
   const clickSoundRef = useRef<HTMLAudioElement | null>(null)
   const soundEffectRef = useRef<HTMLAudioElement | null>(null)
   const wasPlayingRef = useRef(false) // Track if sound effect was playing before tab switch
+  const userInteractedRef = useRef(false) // Track user interaction for autoplay
 
   // Initialize audio elements
   useEffect(() => {
@@ -24,6 +25,21 @@ export function useSoundEffects() {
     soundEffectRef.current.loop = true
     soundEffectRef.current.volume = 0.3
     soundEffectRef.current.preload = 'auto'
+
+    // Track user interaction to enable audio playback
+    const handleUserInteraction = () => {
+      userInteractedRef.current = true
+      // Try to play sound effect if it should be playing
+      if (wasPlayingRef.current && soundEffectRef.current && soundEffectRef.current.paused) {
+        soundEffectRef.current.play().catch(() => {})
+      }
+    }
+
+    // Listen for user interactions (not once, so it works every time)
+    const events = ['click', 'touchstart', 'keydown']
+    events.forEach((event) => {
+      document.addEventListener(event, handleUserInteraction)
+    })
 
     // Handle page visibility - pause sound effect when tab is hidden
     const handleVisibilityChange = () => {
@@ -48,6 +64,9 @@ export function useSoundEffects() {
     return () => {
       // Cleanup
       document.removeEventListener('visibilitychange', handleVisibilityChange)
+      events.forEach((event) => {
+        document.removeEventListener(event, handleUserInteraction)
+      })
       if (clickSoundRef.current) {
         clickSoundRef.current.pause()
         clickSoundRef.current = null
@@ -73,10 +92,28 @@ export function useSoundEffects() {
   const playSoundEffect = () => {
     if (soundEffectRef.current) {
       wasPlayingRef.current = true
-      soundEffectRef.current.play().catch(() => {
-        wasPlayingRef.current = false
-        // Silently handle autoplay restrictions
-      })
+      
+      // If user has interacted, play immediately
+      if (userInteractedRef.current) {
+        if (soundEffectRef.current.readyState >= 2) {
+          soundEffectRef.current.play().catch(() => {
+            wasPlayingRef.current = false
+          })
+        } else {
+          // Wait for audio to load
+          const handleCanPlay = () => {
+            if (soundEffectRef.current && wasPlayingRef.current) {
+              soundEffectRef.current.play().catch(() => {
+                wasPlayingRef.current = false
+              })
+            }
+          }
+          soundEffectRef.current.addEventListener('canplay', handleCanPlay, { once: true })
+        }
+      } else {
+        // User hasn't interacted yet, but mark as should play
+        // It will start playing on first user interaction
+      }
     }
   }
 
