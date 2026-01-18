@@ -1,0 +1,101 @@
+'use client'
+
+import { useState, Component, ErrorInfo, ReactNode } from 'react'
+import VideoBackground from './components/VideoBackground'
+import SoundToggle from './components/SoundToggle'
+import Navigation from './components/Navigation'
+import FlameEffect from './components/FlameEffect'
+
+// Error Boundary Component
+interface ErrorBoundaryProps {
+  children: ReactNode
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean
+}
+
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props)
+    this.state = { hasError: false }
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true }
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error('Error caught by boundary:', error, errorInfo)
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
+          <div className="text-center text-white">
+            <h1 className="text-2xl mb-4">Something went wrong</h1>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-white text-black rounded-lg hover:bg-gray-200 transition-colors"
+            >
+              Reload Page
+            </button>
+          </div>
+        </div>
+      )
+    }
+
+    return this.props.children
+  }
+}
+
+// Main Landing Page Component
+export default function Home() {
+  const [isMuted, setIsMuted] = useState(true)
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false)
+
+  const handleSoundToggle = (muted: boolean) => {
+    setIsMuted(muted)
+  }
+
+  const handleVideoLoaded = () => {
+    setIsVideoLoaded(true)
+  }
+
+  return (
+    <ErrorBoundary>
+      <main className="relative w-full h-screen min-h-screen overflow-hidden" style={{ width: '100%', height: '100vh', minHeight: '100vh' }}>
+        {/* Video Background */}
+        <VideoBackground isMuted={isMuted} onLoaded={handleVideoLoaded} />
+
+        {/* Loading Overlay */}
+        {!isVideoLoaded && (
+          <div className="fixed inset-0 bg-black z-30 flex items-center justify-center">
+            <div className="text-white text-center px-4">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+              <p className="text-sm sm:text-base md:text-lg">Loading...</p>
+            </div>
+          </div>
+        )}
+
+        {/* UI Overlay Elements */}
+        <div className="relative z-40 w-full h-full">
+          {/* Sound Toggle - Top Left */}
+          <SoundToggle onToggle={handleSoundToggle} />
+
+          {/* Navigation - Top Right */}
+          <Navigation />
+
+          {/* Flame Effect - Bottom Left */}
+          <FlameEffect />
+        </div>
+
+        {/* Content Area (if needed for future content) */}
+        <div className="relative z-30 w-full h-full pointer-events-none">
+          {/* Add any additional content here that should appear over the video */}
+        </div>
+      </main>
+    </ErrorBoundary>
+  )
+}

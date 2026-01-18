@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 16px;
+  /* Prevent horizontal scroll */
+  overflow-x: hidden;
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+  /* Better font rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  height: 100%;
+  min-height: 100vh;
+  /* Prevent horizontal scroll on mobile */
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  /* Better text rendering */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Mobile-specific optimizations (max-width: 640px) */
+@media (max-width: 40rem) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* Tablet optimizations (641px - 1024px) */
+@media (min-width: 40.0625rem) and (max-width: 64rem) {
+  html {
+    font-size: 15px;
+  }
+}
+
+/* Desktop optimizations (1025px+) */
+@media (min-width: 64.0625rem) {
+  html {
+    font-size: 16px;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+/* Prevent layout shift and maintain video quality */
+video {
+  display: block;
+  /* Ensure smooth, high-quality video rendering */
+  image-rendering: auto;
+  -webkit-image-rendering: auto;
+  /* Force hardware acceleration for better quality */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  /* Prevent browser from downscaling */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Use native video resolution - no max constraints */
+  max-width: none !important;
+  max-height: none !important;
+  /* Ensure video fills container at full quality */
+  width: 100%;
+  height: 100%;
+  /* Maintain aspect ratio */
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Responsive video scaling */
+@media (max-width: 40rem) {
+  video {
+    /* Ensure video covers full viewport on mobile */
+    width: 100vw;
+    height: 100vh;
+  }
+}
+
+/* Smooth transitions */
+button {
+  transition: all 0.3s ease;
+  /* Ensure minimum touch target size for mobile (44x44px = 2.75rem) */
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  /* Prevent text selection on buttons */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Mobile touch targets (max-width: 640px) */
+@media (max-width: 40rem) {
+  button {
+    /* Slightly smaller on very small screens but still touch-friendly */
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+  }
+}
+
+/* Tablet and desktop - maintain larger touch targets */
+@media (min-width: 40.0625rem) {
+  button {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+  }
+}
+
+/* Focus indicators for accessibility */
+button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Loading skeleton */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) 25%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.1) 75%
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Responsive container utilities */
+@media (max-width: 40rem) {
+  /* Mobile: Ensure no horizontal overflow */
+  * {
+    max-width: 100%;
+  }
+  
+  /* Prevent fixed elements from causing overflow */
+  [class*="fixed"] {
+    max-width: calc(100vw - 1rem);
+  }
+}
+
+/* Tablet: Optimize spacing */
+@media (min-width: 40.0625rem) and (max-width: 64rem) {
+  /* Tablet-specific adjustments */
+}
+
+/* Desktop: Full features */
+@media (min-width: 64.0625rem) {
+  /* Desktop-specific optimizations */
+}
+
+/* Large screens: Prevent elements from becoming too large */
+@media (min-width: 80rem) {
+  /* Max width constraints for very large screens */
+}
+
+/* Safe area insets for mobile devices with notches */
+@supports (padding: max(0px)) {
+  @media (max-width: 40rem) {
+    .fixed {
+      padding-left: max(0.5rem, env(safe-area-inset-left));
+      padding-right: max(0.5rem, env(safe-area-inset-right));
+      padding-top: max(0.5rem, env(safe-area-inset-top));
+      padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+    }
+  }
+}
