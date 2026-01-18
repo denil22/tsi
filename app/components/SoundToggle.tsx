@@ -54,10 +54,11 @@ export default function SoundToggle({ onToggle }: SoundToggleProps) {
       stopSoundEffect()
     } else {
       // User clicked to turn sound on - play sound effect
-      // Small delay to ensure click sound plays first
+      // On mobile, audio needs time to be ready after page load
+      // Use longer delay to ensure audio is loaded and user interaction is registered
       setTimeout(() => {
         playSoundEffect()
-      }, 100)
+      }, 150)
     }
   }
 
