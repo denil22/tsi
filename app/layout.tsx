@@ -22,6 +22,10 @@ export const metadata: Metadata = {
     maximumScale: 5,
   },
   themeColor: '#000000',
+  // Add caching metadata
+  other: {
+    'cache-control': 'public, max-age=3600, must-revalidate',
+  },
 }
 
 export default function RootLayout({

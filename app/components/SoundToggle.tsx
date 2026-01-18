@@ -35,7 +35,11 @@ export default function SoundToggle({ onToggle }: SoundToggleProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []) // Run only once on mount - onToggle and stopSoundEffect are stable
 
-  const handleToggle = () => {
+  const handleToggle = (e: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement>) => {
+    // Prevent default and stop propagation for better mobile handling
+    e.preventDefault()
+    e.stopPropagation()
+    
     // Play click sound first
     playClickSound()
     
@@ -60,6 +64,26 @@ export default function SoundToggle({ onToggle }: SoundToggleProps) {
   return (
     <button
       onClick={handleToggle}
+      onTouchEnd={(e) => {
+        // Handle touch events explicitly for mobile - prevent double firing
+        e.stopPropagation()
+        const touch = e.changedTouches[0]
+        const target = e.target as HTMLElement
+        const rect = target.getBoundingClientRect()
+        const touchX = touch.clientX
+        const touchY = touch.clientY
+        
+        // Only fire if touch is within button bounds
+        if (
+          touchX >= rect.left &&
+          touchX <= rect.right &&
+          touchY >= rect.top &&
+          touchY <= rect.bottom
+        ) {
+          e.preventDefault()
+          handleToggle(e)
+        }
+      }}
       className="fixed z-50 
                  flex items-center justify-center 
                  bg-transparent border-none p-0
@@ -68,6 +92,7 @@ export default function SoundToggle({ onToggle }: SoundToggleProps) {
                  focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2
                  animate-fade-in cursor-pointer
                  touch-manipulation
+                 select-none
                  top-[0.25rem] left-[0.25rem]
                  xs:top-[0.375rem] xs:left-[0.375rem]
                  sm:top-[0.5rem] sm:left-[0.5rem]
@@ -83,9 +108,12 @@ export default function SoundToggle({ onToggle }: SoundToggleProps) {
       style={{
         paddingLeft: 'env(safe-area-inset-left, 0)',
         paddingTop: 'env(safe-area-inset-top, 0)',
+        WebkitTapHighlightColor: 'transparent',
+        touchAction: 'manipulation',
       }}
       aria-label={isMuted ? 'Unmute video' : 'Mute video'}
       aria-pressed={isMuted}
+      type="button"
     >
       <Image
         src={isMuted ? '/images/sound-off.png' : '/images/sound-on.png'}
