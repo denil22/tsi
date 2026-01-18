@@ -32,7 +32,8 @@ export default function SoundToggle({ onToggle }: SoundToggleProps) {
     
     // Clear any saved state to ensure fresh start
     localStorage.removeItem('videoMuted')
-  }, []) // Run only once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // Run only once on mount - onToggle and stopSoundEffect are stable
 
   const handleToggle = () => {
     // Play click sound first
@@ -91,10 +92,9 @@ export default function SoundToggle({ onToggle }: SoundToggleProps) {
         alt={isMuted ? 'Sound off icon' : 'Sound on icon'}
         width={64}
         height={64}
-        className="w-full h-full object-contain"
+        className="object-contain"
         style={{ width: '90%', height: '90%' }}
         priority
-        quality={100}
       />
     </button>
   )

@@ -52,12 +52,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
 // Main Landing Page Component
 export default function Home() {
-  const [isMuted, setIsMuted] = useState(true)
   const [isBackgroundLoaded, setIsBackgroundLoaded] = useState(false)
-
-  const handleSoundToggle = (muted: boolean) => {
-    setIsMuted(muted)
-  }
 
   const handleBackgroundLoaded = () => {
     setIsBackgroundLoaded(true)
@@ -68,15 +63,16 @@ export default function Home() {
       <main 
         className="relative w-full h-screen min-h-screen overflow-hidden" 
         style={{ 
-          width: '100%', 
+          width: '100vw', 
           height: '100vh', 
           minHeight: '100vh',
-          maxWidth: '100vw',
+          maxWidth: '100%',
           overflowX: 'hidden',
+          position: 'relative',
         }}
       >
         {/* GIF Background */}
-        <VideoBackground isMuted={isMuted} onLoaded={handleBackgroundLoaded} />
+        <VideoBackground onLoaded={handleBackgroundLoaded} />
 
         {/* Loading Overlay */}
         {!isBackgroundLoaded && (
@@ -88,22 +84,16 @@ export default function Home() {
           </div>
         )}
 
-        {/* UI Overlay Elements */}
-        <div className="relative z-40 w-full h-full">
-          {/* Sound Toggle - Top Left */}
-          <SoundToggle onToggle={handleSoundToggle} />
+        {/* UI Overlay Elements - Individual components handle their own pointer events */}
+        {/* Sound Toggle - Top Left */}
+        <SoundToggle onToggle={() => {}} />
 
-          {/* Navigation - Top Right */}
-          <Navigation />
+        {/* Navigation - Top Right */}
+        <Navigation />
 
-          {/* Flame Effect - Bottom Left */}
-          <FlameEffect />
-        </div>
+        {/* Flame Effect - Bottom Left */}
+        <FlameEffect />
 
-        {/* Content Area (if needed for future content) */}
-        <div className="relative z-30 w-full h-full pointer-events-none">
-          {/* Add any additional content here that should appear over the video */}
-        </div>
       </main>
     </ErrorBoundary>
   )

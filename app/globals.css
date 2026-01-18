@@ -90,37 +90,6 @@ body {
     rgb(var(--background-start-rgb));
 }
 
-/* Prevent layout shift and maintain video quality */
-video {
-  display: block;
-  /* Ensure smooth, high-quality video rendering */
-  image-rendering: auto;
-  -webkit-image-rendering: auto;
-  /* Force hardware acceleration for better quality */
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  /* Prevent browser from downscaling */
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  /* Use native video resolution - no max constraints */
-  max-width: none !important;
-  max-height: none !important;
-  /* Ensure video fills container at full quality */
-  width: 100%;
-  height: 100%;
-  /* Maintain aspect ratio */
-  object-fit: cover;
-  object-position: center;
-}
-
-/* Responsive video scaling */
-@media (max-width: 40rem) {
-  video {
-    /* Ensure video covers full viewport on mobile */
-    width: 100vw;
-    height: 100vh;
-  }
-}
 
 /* Smooth transitions */
 button {
@@ -179,38 +148,19 @@ button:focus-visible {
 
 /* Responsive container utilities */
 @media (max-width: 40rem) {
-  /* Mobile: Ensure no horizontal overflow */
-  * {
-    max-width: 100%;
-  }
-  
   /* Prevent fixed elements from causing overflow */
   [class*="fixed"] {
-    max-width: calc(100vw - 1rem);
+    max-width: calc(100vw - 0.5rem);
+  }
+  
+  /* Ensure images don't overflow */
+  img {
+    max-width: 100%;
+    height: auto;
   }
 }
 
-/* Tablet: Optimize spacing */
-@media (min-width: 40.0625rem) and (max-width: 64rem) {
-  /* Tablet-specific adjustments */
-}
 
-/* Desktop: Full features */
-@media (min-width: 64.0625rem) {
-  /* Desktop-specific optimizations */
-}
-
-/* Large screens: Prevent elements from becoming too large */
-@media (min-width: 80rem) {
-  /* Max width constraints for very large screens */
-}
-
-/* Safe area insets for mobile devices with notches */
-@supports (padding: max(0px)) {
-  @media (max-width: 40rem) {
-    /* Safe area handling is now done inline in components */
-  }
-}
 
 /* Prevent text selection on mobile */
 @media (max-width: 40rem) {

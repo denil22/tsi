@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
 import { useSoundEffects } from '../hooks/useSoundEffects'
 
 interface NavigationProps {
@@ -28,15 +27,11 @@ export default function Navigation({
   onTwitterClick,
   onDiscordClick,
 }: NavigationProps) {
-  const [isHovered, setIsHovered] = useState<string | null>(null)
   const { playClickSound } = useSoundEffects()
 
   const handleApplicationClick = () => {
-    // Play click sound
     playClickSound()
-    // Add your application link/action here
     onApplicationClick?.()
-    console.log('Application clicked')
   }
 
   const handleTwitterClick = () => {
@@ -81,8 +76,6 @@ export default function Navigation({
       {/* Application Button - Matches sound button height */}
       <button
         onClick={handleApplicationClick}
-        onMouseEnter={() => setIsHovered('application')}
-        onMouseLeave={() => setIsHovered(null)}
         className="flex items-center justify-center
                    bg-transparent border-none p-0
                    hover:opacity-80 active:opacity-70
@@ -109,17 +102,13 @@ export default function Navigation({
           width={300}
           height={99}
           className="h-full w-auto object-contain"
-          style={{ height: '100%', width: 'auto' }}
           priority
-          quality={100}
         />
       </button>
 
       {/* Twitter/X Icon - Matches sound button size (square) */}
       <button
         onClick={handleTwitterClick}
-        onMouseEnter={() => setIsHovered('twitter')}
-        onMouseLeave={() => setIsHovered(null)}
         className="flex items-center justify-center
                    bg-transparent border-none p-0
                    hover:opacity-80 active:opacity-70
@@ -141,17 +130,14 @@ export default function Navigation({
           alt="Twitter/X icon"
           width={99}
           height={99}
-          className="w-full h-full object-contain"
-          style={{ width: '70%', height: '70%', objectFit: 'contain' }}
-          quality={100}
+          className="object-contain"
+          style={{ width: '70%', height: '70%' }}
         />
       </button>
 
       {/* Discord Icon - Matches sound button size (square) */}
       <button
         onClick={handleDiscordClick}
-        onMouseEnter={() => setIsHovered('discord')}
-        onMouseLeave={() => setIsHovered(null)}
         className="flex items-center justify-center
                    bg-transparent border-none p-0
                    hover:opacity-80 active:opacity-70
@@ -173,9 +159,8 @@ export default function Navigation({
           alt="Discord icon"
           width={99}
           height={99}
-          className="w-full h-full object-contain"
-          style={{ width: '90%', height: '90%', objectFit: 'contain' }}
-          quality={100}
+          className="object-contain"
+          style={{ width: '90%', height: '90%' }}
         />
       </button>
     </nav>

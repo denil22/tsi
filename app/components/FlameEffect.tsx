@@ -40,8 +40,6 @@ export default function FlameEffect() {
                    xl:w-20 xl:h-20
                    2xl:w-24 2xl:h-24
                    object-contain"
-        quality={100}
-        priority={false}
       />
     </div>
   )

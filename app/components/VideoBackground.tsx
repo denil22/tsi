@@ -4,7 +4,6 @@ import { useState } from 'react'
 import Image from 'next/image'
 
 interface VideoBackgroundProps {
-  isMuted: boolean
   onLoaded?: () => void
 }
 
@@ -17,7 +16,7 @@ interface VideoBackgroundProps {
  * - Responsive scaling
  * - Automatic animation (GIF loops automatically)
  */
-export default function VideoBackground({ isMuted, onLoaded }: VideoBackgroundProps) {
+export default function VideoBackground({ onLoaded }: VideoBackgroundProps) {
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
 
@@ -38,7 +37,6 @@ export default function VideoBackground({ isMuted, onLoaded }: VideoBackgroundPr
         width: '100vw',
         height: '100vh',
         maxWidth: '100%',
-        maxHeight: '100%',
       }}
     >
       {isLoading && (
@@ -60,17 +58,8 @@ export default function VideoBackground({ isMuted, onLoaded }: VideoBackgroundPr
           style={{
             objectFit: 'cover',
             objectPosition: 'center',
-            width: '100%',
-            height: '100%',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            zIndex: 0,
-            maxWidth: '100vw',
-            maxHeight: '100vh',
           }}
           priority
-          quality={100}
           unoptimized
           onLoad={handleLoad}
           onError={handleError}
