@@ -100,12 +100,12 @@ export default function SoundToggle({ onToggle }: SoundToggleProps) {
                  md:top-[0.75rem] md:left-[0.75rem]
                  lg:top-[1rem] lg:left-[1rem]
                  w-11 h-11 
-                 xs:w-12 xs:h-12
+                 xs:w-11 xs:h-11
                  sm:w-12 sm:h-12
-                 md:w-14 md:h-14
-                 lg:w-16 lg:h-16
-                 xl:w-18 xl:h-18
-                 2xl:w-20 2xl:h-20"
+                 md:w-12 md:h-12
+                 lg:w-14 lg:h-14
+                 xl:w-14 xl:h-14
+                 2xl:w-16 2xl:h-16"
       style={{
         paddingLeft: 'env(safe-area-inset-left, 0)',
         paddingTop: 'env(safe-area-inset-top, 0)',

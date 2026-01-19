@@ -83,16 +83,16 @@ export default function Navigation({
                    focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2
                    cursor-pointer touch-manipulation
                    flex-shrink-0
-                   h-11 
-                   xs:h-12
-                   sm:h-12
-                   md:h-14
-                   lg:h-16
-                   xl:h-18
-                   2xl:h-20"
+                   h-12
+                   xs:h-11
+                   sm:h-11
+                   md:h-12
+                   lg:h-14
+                   xl:h-14
+                   2xl:h-16"
         style={{ 
-          minWidth: '2.75rem', 
-          minHeight: '2.75rem',
+          minWidth: '2.5rem', 
+          minHeight: '2.5rem',
         }}
         aria-label="Open application"
       >
@@ -117,12 +117,12 @@ export default function Navigation({
                    cursor-pointer touch-manipulation
                    flex-shrink-0
                    h-11 w-11
-                   xs:h-12 xs:w-12
+                   xs:h-11 xs:w-11
                    sm:h-12 sm:w-12
-                   md:h-14 md:w-14
-                   lg:h-16 lg:w-16
-                   xl:h-18 xl:w-18
-                   2xl:h-20 2xl:w-20"
+                   md:h-12 md:w-12
+                   lg:h-14 lg:w-14
+                   xl:h-14 xl:w-14
+                   2xl:h-16 2xl:w-16"
         aria-label="Visit our Twitter"
       >
         <Image
@@ -146,12 +146,12 @@ export default function Navigation({
                    cursor-pointer touch-manipulation
                    flex-shrink-0
                    h-11 w-11
-                   xs:h-12 xs:w-12
+                   xs:h-11 xs:w-11
                    sm:h-12 sm:w-12
-                   md:h-14 md:w-14
-                   lg:h-16 lg:w-16
-                   xl:h-18 xl:w-18
-                   2xl:h-20 2xl:w-20"
+                   md:h-12 md:w-12
+                   lg:h-14 lg:w-14
+                   xl:h-14 xl:w-14
+                   2xl:h-16 2xl:w-16"
         aria-label="Join our Discord"
       >
         <Image
