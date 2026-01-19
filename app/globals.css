@@ -16,11 +16,8 @@
 
 html {
   font-size: 16px;
-  /* Prevent horizontal scroll */
   overflow-x: hidden;
-  /* Smooth scrolling */
   scroll-behavior: smooth;
-  /* Better font rendering */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -30,35 +27,29 @@ body {
   overflow-x: hidden;
   height: 100%;
   min-height: 100vh;
-  /* Prevent horizontal scroll on mobile */
   position: relative;
   -webkit-overflow-scrolling: touch;
-  /* Better text rendering */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
 
-/* Extra small mobile (max-width: 360px) */
 @media (max-width: 22.5rem) {
   html {
     font-size: 13px;
   }
 }
 
-/* Small mobile (361px - 480px) */
 @media (min-width: 22.5625rem) and (max-width: 30rem) {
   html {
     font-size: 14px;
   }
 }
 
-/* Mobile-specific optimizations (max-width: 640px) */
 @media (max-width: 40rem) {
   html {
     font-size: 14px;
   }
   
-  /* Better touch targets on mobile */
   button {
     min-width: 2.5rem;
     min-height: 2.5rem;
@@ -66,14 +57,12 @@ body {
   }
 }
 
-/* Tablet optimizations (641px - 1024px) */
 @media (min-width: 40.0625rem) and (max-width: 64rem) {
   html {
     font-size: 15px;
   }
 }
 
-/* Desktop optimizations (1025px+) */
 @media (min-width: 64.0625rem) {
   html {
     font-size: 16px;
@@ -91,26 +80,21 @@ body {
 }
 
 
-/* Smooth transitions */
 button {
   transition: all 0.3s ease;
-  /* Ensure minimum touch target size for mobile (44x44px = 2.75rem) */
   min-width: 2.75rem;
   min-height: 2.75rem;
-  /* Prevent text selection on buttons */
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
 }
 
-/* Touch manipulation for better mobile performance */
 .touch-manipulation {
   touch-action: manipulation;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Tablet and desktop - maintain larger touch targets */
 @media (min-width: 40.0625rem) {
   button {
     min-width: 2.75rem;
@@ -118,14 +102,12 @@ button {
   }
 }
 
-/* Focus indicators for accessibility */
 button:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.8);
   outline-offset: 4px;
   border-radius: 4px;
 }
 
-/* Loading skeleton */
 .skeleton {
   background: linear-gradient(
     90deg,
@@ -146,14 +128,11 @@ button:focus-visible {
   }
 }
 
-/* Responsive container utilities */
 @media (max-width: 40rem) {
-  /* Prevent fixed elements from causing overflow */
   [class*="fixed"] {
     max-width: calc(100vw - 0.5rem);
   }
   
-  /* Ensure images don't overflow */
   img {
     max-width: 100%;
     height: auto;
@@ -162,7 +141,6 @@ button:focus-visible {
 
 
 
-/* Prevent text selection on mobile */
 @media (max-width: 40rem) {
   * {
     -webkit-touch-callout: none;
@@ -170,19 +148,15 @@ button:focus-visible {
     user-select: none;
   }
   
-  /* Allow text selection in specific cases if needed */
   input, textarea {
     -webkit-user-select: text;
     user-select: text;
   }
 }
 
-/* Better mobile viewport handling */
 @media (max-width: 40rem) {
   body {
-    /* Prevent zoom on input focus */
     touch-action: pan-x pan-y;
-    /* Better scrolling on iOS */
     -webkit-overflow-scrolling: touch;
   }
 }

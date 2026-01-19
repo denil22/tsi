@@ -6,18 +6,6 @@ interface VideoBackgroundProps {
   onLoaded?: () => void
 }
 
-/**
- * Video Background Component
- * 
- * Optimized full-screen MP4 video background with:
- * - Fast loading and autoplay
- * - Continuous loop
- * - Maximum quality preservation
- * - Responsive scaling
- * - Proper error handling
- * - Hydration-safe implementation
- * - Tab visibility handling
- */
 export default function VideoBackground({ onLoaded }: VideoBackgroundProps) {
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
@@ -25,12 +13,10 @@ export default function VideoBackground({ onLoaded }: VideoBackgroundProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const wasPlayingRef = useRef(false)
 
-  // Ensure component only renders on client side to prevent hydration mismatch
   useEffect(() => {
     setIsMounted(true)
   }, [])
 
-  // Handle video loading and playback
   useEffect(() => {
     if (!isMounted || !videoRef.current) return
 
@@ -39,10 +25,8 @@ export default function VideoBackground({ onLoaded }: VideoBackgroundProps) {
     const handleCanPlay = () => {
       setIsLoading(false)
       onLoaded?.()
-      // Ensure video plays
       if (video.paused) {
         video.play().catch(() => {
-          // Autoplay failed, but video is loaded
           setIsLoading(false)
           onLoaded?.()
         })
@@ -60,13 +44,11 @@ export default function VideoBackground({ onLoaded }: VideoBackgroundProps) {
     }
 
     const handleError = () => {
-      console.error('Video loading error')
       setHasError(true)
       setIsLoading(false)
       onLoaded?.()
     }
 
-    // Try to play immediately if ready
     if (video.readyState >= 3) {
       handleCanPlay()
     }
@@ -76,7 +58,6 @@ export default function VideoBackground({ onLoaded }: VideoBackgroundProps) {
     video.addEventListener('play', handlePlay)
     video.addEventListener('error', handleError)
 
-    // Handle tab visibility changes
     const handleVisibilityChange = () => {
       if (video) {
         if (document.hidden) {
@@ -132,6 +113,9 @@ export default function VideoBackground({ onLoaded }: VideoBackgroundProps) {
           muted
           playsInline
           preload="auto"
+          disablePictureInPicture
+          controlsList="nodownload nofullscreen noremoteplayback"
+          onContextMenu={(e) => e.preventDefault()}
           className="object-cover"
           style={{
             position: 'absolute',
@@ -149,7 +133,6 @@ export default function VideoBackground({ onLoaded }: VideoBackgroundProps) {
           }}
         />
       ) : (
-        // Placeholder during SSR to match client structure
         <div 
           className="w-full h-full object-cover"
           style={{

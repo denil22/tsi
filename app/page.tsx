@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, Component, ErrorInfo, ReactNode } from 'react'
-import VideoBackground from './components/VideoBackground'
-import SoundToggle from './components/SoundToggle'
-import Navigation from './components/Navigation'
+import { Component, ErrorInfo, ReactNode, useState } from 'react'
 import FlameEffect from './components/FlameEffect'
+import Navigation from './components/Navigation'
+import SoundToggle from './components/SoundToggle'
+import VideoBackground from './components/VideoBackground'
+import { SoundProvider } from './contexts/SoundContext'
 
-// Error Boundary Component
 interface ErrorBoundaryProps {
   children: ReactNode
 }
@@ -26,7 +26,6 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Error caught by boundary:', error, errorInfo)
   }
 
   render() {
@@ -50,7 +49,6 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 }
 
-// Main Landing Page Component
 export default function Home() {
   const [isBackgroundLoaded, setIsBackgroundLoaded] = useState(false)
 
@@ -60,41 +58,37 @@ export default function Home() {
 
   return (
     <ErrorBoundary>
-      <main 
-        className="relative w-full h-screen min-h-screen overflow-hidden" 
-        style={{ 
-          width: '100vw', 
-          height: '100vh', 
-          minHeight: '100vh',
-          maxWidth: '100%',
-          overflowX: 'hidden',
-          position: 'relative',
-        }}
-      >
-        {/* GIF Background */}
-        <VideoBackground onLoaded={handleBackgroundLoaded} />
+      <SoundProvider>
+        <main 
+          className="relative w-full h-screen min-h-screen overflow-hidden" 
+          style={{ 
+            width: '100vw', 
+            height: '100vh', 
+            minHeight: '100vh',
+            maxWidth: '100%',
+            overflowX: 'hidden',
+            position: 'relative',
+          }}
+        >
+          <VideoBackground onLoaded={handleBackgroundLoaded} />
 
-        {/* Loading Overlay */}
-        {!isBackgroundLoaded && (
-          <div className="fixed inset-0 bg-black z-30 flex items-center justify-center">
-            <div className="text-white text-center px-4">
-              <div className="w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-3 xs:mb-4" />
-              <p className="text-xs xs:text-sm sm:text-base md:text-lg">Loading...</p>
+          {!isBackgroundLoaded && (
+            <div className="fixed inset-0 bg-black z-30 flex items-center justify-center">
+              <div className="text-white text-center px-4">
+                <div className="w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-3 xs:mb-4" />
+                <p className="text-xs xs:text-sm sm:text-base md:text-lg">Loading...</p>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* UI Overlay Elements - Individual components handle their own pointer events */}
-        {/* Sound Toggle - Top Left */}
-        <SoundToggle onToggle={() => {}} />
+          <SoundToggle onToggle={() => {}} />
 
-        {/* Navigation - Top Right */}
-        <Navigation />
+          <Navigation />
 
-        {/* Flame Effect - Bottom Left */}
-        <FlameEffect />
+          <FlameEffect />
 
-      </main>
+        </main>
+      </SoundProvider>
     </ErrorBoundary>
   )
 }
