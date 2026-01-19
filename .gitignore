@@ -33,3 +33,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# background gif (removed, using mp4 instead)
+public/images/background.gif
+**/background.gif
