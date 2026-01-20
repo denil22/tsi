@@ -2,8 +2,9 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   title: 'VELCOR3',
-  description: 'Velcorians is where alpha is born and you’re connected before it trends.',
+  description: "Velcorians is where alpha is born and you're connected before it trends.",
   keywords: ['velist', 'landing page', 'gaming'],
   authors: [{ name: 'Velist' }],
   icons: {
@@ -13,15 +14,29 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'VELCOR3',
-    description: 'Velcorians is where alpha is born and you’re connected before it trends.',
+    description: "Velcorians is where alpha is born and you're connected before it trends.",
     type: 'website',
-    images: ['/images/embed.png'],
+    images: [
+      {
+        url: '/images/content.png',
+        width: 1200,
+        height: 630,
+        alt: 'VELCOR3',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'VELCOR3',
-    description: 'Velcorians is where alpha is born and you’re connected before it trends.',
-    images: ['/images/embed.png'],
+    description: "Velcorians is where alpha is born and you're connected before it trends.",
+    images: [
+      {
+        url: '/images/content.png',
+        width: 1200,
+        height: 630,
+        alt: 'VELCOR3',
+      },
+    ],
   },
   other: {
     'cache-control': 'public, max-age=3600, must-revalidate',
