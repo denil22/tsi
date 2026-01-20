@@ -16,12 +16,15 @@ export const metadata: Metadata = {
     title: 'VELCOR3',
     description: "Velcorians is where alpha is born and you're connected before it trends.",
     type: 'website',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+    siteName: 'VELCOR3',
     images: [
       {
         url: '/images/content.png',
         width: 1200,
         height: 630,
         alt: 'VELCOR3',
+        type: 'image/png',
       },
     ],
   },
