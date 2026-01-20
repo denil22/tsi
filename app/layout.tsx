@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vellist.vercel.app'
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://vellist.vercel.app'),
+  metadataBase: new URL(siteUrl),
   title: 'VELCOR3',
   description: "Velcorians is where alpha is born and you're connected before it trends.",
   keywords: ['velist', 'landing page', 'gaming'],
@@ -16,13 +18,14 @@ export const metadata: Metadata = {
     title: 'VELCOR3',
     description: "Velcorians is where alpha is born and you're connected before it trends.",
     type: 'website',
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://vellist.vercel.app',
+    url: siteUrl,
     siteName: 'VELCOR3',
+    locale: 'en_US',
     images: [
       {
-        url: '/images/content.png',
-        width: 1200,
-        height: 630,
+        url: `${siteUrl}/images/content.png`,
+        width: 1024,
+        height: 1024,
         alt: 'VELCOR3',
         type: 'image/png',
       },
@@ -34,9 +37,9 @@ export const metadata: Metadata = {
     description: "Velcorians is where alpha is born and you're connected before it trends.",
     images: [
       {
-        url: '/images/content.png',
-        width: 1200,
-        height: 630,
+        url: `${siteUrl}/images/content.png`,
+        width: 1024,
+        height: 1024,
         alt: 'VELCOR3',
       },
     ],
