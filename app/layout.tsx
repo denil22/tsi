@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://vellist.vercel.app'),
   title: 'VELCOR3',
   description: "Velcorians is where alpha is born and you're connected before it trends.",
   keywords: ['velist', 'landing page', 'gaming'],
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: 'VELCOR3',
     description: "Velcorians is where alpha is born and you're connected before it trends.",
     type: 'website',
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://vellist.vercel.app',
     siteName: 'VELCOR3',
     images: [
       {
