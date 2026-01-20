@@ -8,6 +8,7 @@ export default function Navigation() {
 
   const handleApplicationClick = () => {
     playClickSound()
+    window.open('https://velcor3.typeform.com/Velist', '_blank', 'noopener,noreferrer')
   }
 
   const handleTwitterClick = () => {
