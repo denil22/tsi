@@ -3,7 +3,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'VELCOR3',
-  description: 'Experience the magic of Velist',
+  description: 'Velcorians is where alpha is born and you’re connected before it trends.',
   keywords: ['velist', 'landing page', 'gaming'],
   authors: [{ name: 'Velist' }],
   icons: {
@@ -13,15 +13,15 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'VELCOR3',
-    description: 'Experience the magic of Velist',
+    description: 'Velcorians is where alpha is born and you’re connected before it trends.',
     type: 'website',
-    images: ['/images/sitelogo.jpg'],
+    images: ['/images/embed.png'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'VELCOR3',
-    description: 'Experience the magic of Velist',
-    images: ['/images/sitelogo.jpg'],
+    description: 'Velcorians is where alpha is born and you’re connected before it trends.',
+    images: ['/images/embed.png'],
   },
   other: {
     'cache-control': 'public, max-age=3600, must-revalidate',

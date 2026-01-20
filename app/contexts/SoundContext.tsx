@@ -37,7 +37,14 @@ export function SoundProvider({ children }: SoundProviderProps) {
     clickSoundRef.current.preload = 'auto'
     clickSoundRef.current.load()
 
-    soundEffectRef.current = new Audio('/sounds/sound-effect.mp3')
+    if (soundEffectRef.current) {
+      soundEffectRef.current.pause()
+      soundEffectRef.current.src = ''
+      soundEffectRef.current.load()
+      soundEffectRef.current = null
+    }
+
+    soundEffectRef.current = new Audio('/sounds/' + encodeURIComponent('new sound.mp3'))
     soundEffectRef.current.loop = true
     soundEffectRef.current.volume = 0.3
     soundEffectRef.current.preload = 'auto'
