@@ -4,14 +4,16 @@ import { useState, useEffect, useRef } from 'react'
 
 interface VideoBackgroundProps {
   onLoaded?: () => void
+  videoSource?: string
 }
 
-export default function VideoBackground({ onLoaded }: VideoBackgroundProps) {
+export default function VideoBackground({ onLoaded, videoSource = '/images/Dark only.mp4' }: VideoBackgroundProps) {
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const wasPlayingRef = useRef(false)
+  const previousSourceRef = useRef<string>(videoSource)
 
   useEffect(() => {
     setIsMounted(true)
@@ -21,6 +23,14 @@ export default function VideoBackground({ onLoaded }: VideoBackgroundProps) {
     if (!isMounted || !videoRef.current) return
 
     const video = videoRef.current
+
+    if (videoSource !== previousSourceRef.current) {
+      previousSourceRef.current = videoSource
+      setIsLoading(true)
+      setHasError(false)
+      video.src = videoSource
+      video.load()
+    }
 
     const handleCanPlay = () => {
       setIsLoading(false)
@@ -82,7 +92,7 @@ export default function VideoBackground({ onLoaded }: VideoBackgroundProps) {
       video.removeEventListener('error', handleError)
       document.removeEventListener('visibilitychange', handleVisibilityChange)
     }
-  }, [isMounted, onLoaded])
+  }, [isMounted, onLoaded, videoSource])
 
   return (
     <div 
@@ -107,7 +117,7 @@ export default function VideoBackground({ onLoaded }: VideoBackgroundProps) {
       ) : isMounted ? (
         <video
           ref={videoRef}
-          src="/images/Dark only.mp4"
+          src={videoSource}
           autoPlay
           loop
           muted

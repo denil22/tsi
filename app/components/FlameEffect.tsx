@@ -3,7 +3,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSoundContext } from '../contexts/SoundContext'
 
-export default function FlameEffect() {
+interface FlameEffectProps {
+  onVideoChange?: (isWhite: boolean) => void
+}
+
+export default function FlameEffect({ onVideoChange }: FlameEffectProps) {
   const [isWhite, setIsWhite] = useState(false)
   const [imageKey, setImageKey] = useState(0)
   const [isMounted, setIsMounted] = useState(false)
@@ -17,8 +21,10 @@ export default function FlameEffect() {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement>) => {
     e.preventDefault()
     e.stopPropagation()
-    setIsWhite(prev => !prev)
+    const newIsWhite = !isWhite
+    setIsWhite(newIsWhite)
     setImageKey(prev => prev + 1)
+    onVideoChange?.(newIsWhite)
     try {
       playBushSound()
     } catch (error) {

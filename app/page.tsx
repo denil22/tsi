@@ -51,10 +51,19 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
 export default function Home() {
   const [isBackgroundLoaded, setIsBackgroundLoaded] = useState(false)
+  const [isWhiteFlame, setIsWhiteFlame] = useState(false)
 
   const handleBackgroundLoaded = () => {
     setIsBackgroundLoaded(true)
   }
+
+  const handleVideoChange = (isWhite: boolean) => {
+    setIsWhiteFlame(isWhite)
+  }
+
+  const videoSource = isWhiteFlame 
+    ? '/images/Light only .mp4'
+    : '/images/Dark only.mp4'
 
   return (
     <ErrorBoundary>
@@ -70,7 +79,7 @@ export default function Home() {
             position: 'relative',
           }}
         >
-          <VideoBackground onLoaded={handleBackgroundLoaded} />
+          <VideoBackground onLoaded={handleBackgroundLoaded} videoSource={videoSource} />
 
           {!isBackgroundLoaded && (
             <div className="fixed inset-0 bg-black z-30 flex items-center justify-center">
@@ -85,7 +94,7 @@ export default function Home() {
 
           <Navigation />
 
-          <FlameEffect />
+          <FlameEffect onVideoChange={handleVideoChange} />
 
         </main>
       </SoundProvider>
