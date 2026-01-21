@@ -18,7 +18,6 @@ export default function Navigation() {
 
   const handleDiscordClick = () => {
     playClickSound()
-    window.open('https://discord.com', '_blank', 'noopener,noreferrer')
   }
 
   return (
