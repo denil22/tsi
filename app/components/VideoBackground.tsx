@@ -7,7 +7,7 @@ interface VideoBackgroundProps {
   videoSource?: string
 }
 
-export default function VideoBackground({ onLoaded, videoSource = '/images/Dark only.mp4' }: VideoBackgroundProps) {
+export default function VideoBackground({ onLoaded, videoSource = '/images/Dark only.webm' }: VideoBackgroundProps) {
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
   const [isMounted, setIsMounted] = useState(false)

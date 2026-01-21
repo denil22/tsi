@@ -62,8 +62,8 @@ export default function Home() {
   }
 
   const videoSource = isWhiteFlame 
-    ? '/images/Light only .mp4'
-    : '/images/Dark only.mp4'
+    ? '/images/Light only .webm'
+    : '/images/Dark only.webm'
 
   return (
     <ErrorBoundary>
