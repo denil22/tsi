@@ -1,6 +1,7 @@
 'use client'
 
 import { Component, ErrorInfo, ReactNode, useState } from 'react'
+import CountdownTimer from './components/CountdownTimer'
 import FlameEffect from './components/FlameEffect'
 import Navigation from './components/Navigation'
 import SoundToggle from './components/SoundToggle'
@@ -95,6 +96,8 @@ export default function Home() {
           <Navigation />
 
           <FlameEffect onVideoChange={handleVideoChange} />
+
+          <CountdownTimer />
 
         </main>
       </SoundProvider>
